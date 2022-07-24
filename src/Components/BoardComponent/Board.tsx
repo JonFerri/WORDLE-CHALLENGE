@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect, useCallback } from "react";
 import WordleContext from "../../Context/WordleContext";
-import Guess from '../GuessComponent/Guess'
+import GuessPanel from '../GuessPanelComponent/GuessPanel'
 import HiddenInput from "../HiddenInput/HiddenInput";
 
 
@@ -34,13 +34,7 @@ const Board: React.FunctionComponent<BoardTypes> = () => {
     
     <div className='game-container' onClick={() => inputGetsFocus(inputRef.current)}>
       <HiddenInput />
-      <div className="guesses-container">
-          {guesses.map((guess, j) => {
-            return (
-              <Guess guessIndex={j} key={j} guessNumber={guessNumber} />
-            );
-          })}
-      </div>
+      <GuessPanel guesses={guesses} guessNumber={guessNumber}/>
     </div>
   );
 };
