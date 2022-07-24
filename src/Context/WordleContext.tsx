@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import words from "../Resources/words";
 
 type WordleContextType = {
@@ -10,6 +10,7 @@ type WordleContextType = {
   updateInputText: React.Dispatch<React.SetStateAction<string>>
   numOfGuesses: number
   setNumOfGuesses: React.Dispatch<React.SetStateAction<number>>
+  inputRef: React.RefObject<HTMLInputElement>
 };
 
 const WordleContext = React.createContext<WordleContextType>({} as WordleContextType);
@@ -29,6 +30,8 @@ export const WordleContextProvider = ({ children }: Props) => {
     setWord(randomWord);
   }, []);
 
+  const inputRef = useRef<HTMLInputElement>(null)
+
   return (
     <WordleContext.Provider
       value={{
@@ -40,6 +43,7 @@ export const WordleContextProvider = ({ children }: Props) => {
         setNumOfGuesses,
         inputText,
         updateInputText,
+        inputRef
       }}
     >
       {children}

@@ -1,6 +1,7 @@
-import React, { useState, useRef, useContext, useEffect, useCallback } from "react";
+import React, { useState, useContext, useEffect, useCallback } from "react";
 import WordleContext from "../../Context/WordleContext";
 import Guess from '../GuessComponent/Guess'
+import HiddenInput from "../HiddenInput/HiddenInput";
 
 
 type BoardTypes = {}
@@ -9,9 +10,9 @@ const Board: React.FunctionComponent<BoardTypes> = () => {
   
   const [guessNumber, setGuessNumber] = useState<number>(0);
 
-  const { inputText, updateInputText, setInputFocus } = useContext(WordleContext);
+  const { inputText, setInputFocus, inputRef } = useContext(WordleContext);
 
-  const inputRef = useRef<HTMLInputElement>(null);
+  
 
   const guesses = Array(6).fill(null);
   
@@ -30,18 +31,9 @@ const Board: React.FunctionComponent<BoardTypes> = () => {
   }, [inputText, incrementGuessNumber])
 
   return (
+    
     <div className='game-container' onClick={() => inputGetsFocus(inputRef.current)}>
-            
-      <div className="input-container">
-        <input
-            ref={inputRef}
-            onChange={(e) => updateInputText(e.target.value)}
-            onFocus={() => setInputFocus(true)}
-            onBlur={() => setInputFocus(false)}
-            maxLength={5}
-            value={inputText}
-        ></input>
-      </div>
+      <HiddenInput />
       <div className="guesses-container">
           {guesses.map((guess, j) => {
             return (
