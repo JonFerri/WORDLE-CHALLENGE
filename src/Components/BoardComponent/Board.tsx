@@ -8,20 +8,12 @@ type BoardTypes = {}
 
 const Board: React.FunctionComponent<BoardTypes> = () => {
   
+
+  //hooks
   const [guessNumber, setGuessNumber] = useState<number>(0);
-
+  
   const { inputText, setInputFocus, inputRef } = useContext(WordleContext);
-
   
-
-  const guesses = Array(6).fill(null);
-  
-
-  // Functions
-  function inputGetsFocus(input: HTMLInputElement | null) {
-    input?.focus();
-    setInputFocus(true);
-  }
   const incrementGuessNumber = useCallback(()=>{
     setGuessNumber(prevGuessNumber=> prevGuessNumber + 1)
   }, [setGuessNumber])
@@ -30,6 +22,19 @@ const Board: React.FunctionComponent<BoardTypes> = () => {
     if(inputText.length === 5) incrementGuessNumber()
   }, [inputText, incrementGuessNumber])
 
+
+
+  //Variables and constants  
+  const guesses = Array(6).fill(null);
+  
+
+  // Functions
+  function inputGetsFocus(input: HTMLInputElement | null) {
+    input?.focus();
+    setInputFocus(true);
+  }
+
+  
   return (
     
     <div className='game-container' onClick={() => inputGetsFocus(inputRef.current)}>
